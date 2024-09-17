@@ -7,82 +7,124 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
+  IsUrl,
+  Max,
+  MaxLength,
   Min,
 } from 'class-validator';
 export class CreateProductoDto {
-  /* @ApiProperty({
-    name:'id Producto',
-    description: 'Id Producto',
-    example: '0',
-  })
-  public idProducto:number;*/
+  /*type: 'string', 
+  
+  description: 'Categoría del Producto', 
+  required: true,
+  maxLength: 80,  
+  nullable: false,
+  example: 'Alimento Seco Perros'}*/
 
   @ApiProperty({
     name: 'nombreProducto',
     description: 'Nombre del Producto',
-    example: 'nomnbre producto',
+    example:'Girasol',
+    required: true,
+    type: 'string', 
+    maxLength:60,
+    nullable:false
   })
-  @IsString()
-  @IsNotEmpty({ message: 'No puede estar vacio el nombre del producto' })
+  @IsString({ message: 'El nombre producto debe ser texto' })
+  @IsNotEmpty({ message: 'El nombre producto es campo obligatorio' })
+  @MaxLength(60, { message: 'El nombre del producto no puede tener más de 60 caracteres' })
   public nombreProducto: string;
 
   @ApiProperty({
     name: 'imagenProducto',
-    description: 'URL de la imagen del producto',
+    description: 'Lista de Url de la imagenes de un producto',
     example: [
-      'http://example.com/imagen_1.jpg',
-      'http://example.com/imagen_1_d.jpg',
+      'https://example.com/imagen_1.jpg',
+      'https://example.com/imagen_1_d.jpg',
     ],
+    required: true,
+    type: [String], 
+    isArray: true,
+
+    default:['https://imagenes/sin_imagen.png']
   })
-  @IsArray()
-  @ArrayNotEmpty({ message: 'No puede estar vacio la imagen del producto' })
-  @IsString({ each: true })
+  @IsArray({ message: 'El campo debe ser un array de URLs' })
+  @ArrayNotEmpty({ message: 'La lista de URLs no puede estar vacía' })
+  @IsUrl({}, { each: true, message: 'Cada URL debe ser válida' })
   public imagenProducto: string[];
 
   @ApiProperty({
     name: 'descuento',
+    type: Number,
     description: 'descuento en el precio del producto',
+    required: true,
+    minimum:0,
     example: 0,
     default: 0,
+    
   })
-  @IsNumber()
+  @IsNumber({}, { message: 'El descuento debe ser un número' })
   @Min(0, { message: 'El descuento debe ser al menos 0' })
   public descuento?: number;
 
   @ApiProperty({
     name: 'precioNormal',
+    type: Number,
     description: 'Precio normal del producto sin descuento',
     example: 50000,
+    required: true,
+    minimum:100,
+    maximum:1000000,
   })
-  @IsNumber()
-  @Min(1000, { message: 'El valor del producto debe ser al menos 1000' })
+  @IsNumber({}, { message: 'El precio normal debe ser un número' })
+  @Min(100, { message: 'El precio normal del producto debe ser al mayor igual a 100' })
+  @Max(1000000, { message: 'El precio normal del producto debe ser menor igual a 1000000' })
   public precioNormal: number;
+
   @ApiProperty({
     name: 'coberturaDeDespacho',
-    description: 'cobertura despacho producto',
+    description: 'Lista de lugares de cobertura de un producto',
     example: ['Region Metropolitana', 'Region Valparaiso'],
+    required: true,
+    type: [String], 
+    isArray: true,
   })
-  @IsArray()
+  @IsArray({ message: 'El campo debe ser un array de lugares' })
+  @ArrayNotEmpty({ message: 'La lista de lugares no puede estar vacía' })
   public coberturaDeDespacho: string[];
 
   @ApiProperty({
     name: 'stock',
-    description: 'Cantidad de stock disponible',
+    type: Number,
+    description: 'stock del producto sin descuento',
     example: 100,
+    required: true,
+    minimum:1,
+    maximum:100000,
   })
-  @IsNumber()
-  @Min(1, { message: 'El stock del producto debe ser al menos 1' })
+  @IsNumber({}, { message: 'El stock debe ser un número' })
+  @Min(1, { message: 'El stock del producto debe ser al mayor igual a 1' })
+  @Max(100000, { message: 'El stock del producto debe ser menor igual a 100000' })
   public stock: number;
 
+@ApiProperty({
+  name: 'descripcionProducto',
+  description: 'Descripcion Breve  del Producto',
+  example:'Es una planta ornamental conocida por sus hojas frondosas y de forma delicada, que crecen en racimos y tienen una textura plumosa. Es ideal para interiores, donde añade un toque de frescura y verdor a cualquier ambiente. También puede crecer en exteriores en climas húmedos y sombreados.',
+  required: true,
+  type: 'string', 
+  minLength:10,
+  maxLength:500,
+  nullable:false
+})
+@IsString({ message: 'Descripcion del producto debe ser texto' })
+@IsNotEmpty({ message: 'Descripcion del producto es campo obligatorio' })
+@MaxLength(500, { message: 'Descripcion del producto no puede tener más de 500 caracteres' })   
+@MaxLength(500, { message: 'Descripcion del producto no puede tener más de 500 caracteres' })
+public descripcionProducto: string;
+
   @ApiProperty({
-    name: 'descripcionProducto',
-    description: 'breve descripcion del producto',
-    example: 'Plan especial para decorarar depto.',
-  })
-  @IsString()
-  public descripcionProducto: string;
-  @ApiProperty({
-    name: 'categoria',
+    name: 'categoria',  
     description: 'Enum Tipo Producto',
     enum: TipoProductos,
     example: TipoProductos.Macetero,

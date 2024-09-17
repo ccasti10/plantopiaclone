@@ -16,12 +16,12 @@ export class UsuariosService {
       'Carlo Escobar',
       'carlo.escobar@mail.com',
       'pprrprr3223#43',
-      '+56912345678',
+      56912345678,
       'Calle Falsa 123',
       'Santiago',
       'Metropolitana',
-      ComunaSantiago.Santiago,
-      '1234567',
+      'Santiago',
+      1234567,
       [this.servicioPlantas.plantas[0]], // Plantas
     ),
     new Usuario(
@@ -30,12 +30,12 @@ export class UsuariosService {
       'Maria González',
       'maria.gonzalez@mail.com',
       'batman211',
-      '+56987654321',
+      56987654321,
       'Av. Siempre Viva 742',
       'Santiago',
       'Metropolitana',
-      ComunaSantiago.Ñuñoa,
-      '7654321',
+      'Ñuñoa',
+      7654321,
       [], // Plantas
     ),
     new Usuario(
@@ -44,12 +44,12 @@ export class UsuariosService {
       'Pen-Sil López',
       'pensil.lopez@mail.com',
       'contraseñajeje2',
-      '+56912312345',
+      56912312345,
       'Pasaje Los Arboles 15',
       'Santiago',
       'Metropolitana',
-      ComunaSantiago.Providencia,
-      '2345678',
+      'Providencia',
+      2345678,
       [], // Plantas
     ),
     new Usuario(
@@ -58,12 +58,12 @@ export class UsuariosService {
       'Ana Ramirez',
       'ana.ramirez@mail.com',
       'abcdefg23',
-      '+56932132145',
+      932132145,
       'Calle Las Rosas 56',
       'Santiago',
       'Metropolitana',
-      ComunaSantiago.LasCondes,
-      '8765432',
+      'Las Condes',
+      8765432,
       [this.servicioPlantas.plantas[1], this.servicioPlantas.plantas[2]], // Plantas
     ),
   ];
@@ -79,7 +79,7 @@ export class UsuariosService {
       createUsuarioDto.direccion,
       createUsuarioDto.ciudad,
       createUsuarioDto.region,
-      createUsuarioDto.ComunaSantiago,
+      createUsuarioDto.comuna,
       createUsuarioDto.codigoPostal,
       createUsuarioDto.plantas,
     );

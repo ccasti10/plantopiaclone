@@ -12,95 +12,40 @@ import { Planta } from 'src/plantas/entities/planta.entity';
 import { ComunaSantiago } from '../entities/comunas.stgo-enum';
 
 export class Usuario {
-  @ApiProperty({
-    description: 'Identificador único del usuario',
-    example: 1,
-  })
-  @IsNotEmpty()
+  @ApiProperty()
   public id: number;
 
-  @ApiProperty({
-    description: 'RUT del usuario (formato chileno)',
-    example: '12345678-9',
-  })
-  @Matches(/^\d{7,8}-[0-9Kk]$/, { message: 'El RUT no es válido' })
+  @ApiProperty()
   public rut: string;
 
-  @ApiProperty({
-    description: 'Nombre completo del usuario',
-    example: 'Juan Pérez',
-  })
-  @IsNotEmpty()
-  @IsString()
+  @ApiProperty()
   public nombre: string;
 
-  @ApiProperty({
-    description: 'Email del usuario',
-    example: 'juan.perez@example.com',
-  })
-  @IsEmail({}, { message: 'El correo electrónico no es válido' })
+  @ApiProperty()
   public email: string;
 
-  @ApiProperty({
-    description: 'Contraseña del usuario',
-    example: 'password123',
-  })
-  @IsNotEmpty()
-  @Length(8, 20, {
-    message: 'La contraseña debe tener entre 8 y 20 caracteres',
-  })
+  @ApiProperty() 
   public password: string;
 
-  @ApiProperty({
-    description: 'Teléfono del usuario',
-    example: '+56912345678',
-  })
-  @IsNotEmpty()
-  @Matches(/^\+569\d{8}$/, { message: 'El número de teléfono no es válido' })
-  public telefono: string;
+  @ApiProperty()
+  public telefono: number;
 
-  @ApiProperty({
-    description: 'Dirección del usuario',
-    example: 'Calle Falsa 123',
-  })
-  @IsNotEmpty()
+  @ApiProperty()
   public direccion: string;
 
-  @ApiProperty({
-    description: 'Ciudad del usuario',
-    example: 'Santiago',
-  })
-  @IsNotEmpty()
+  @ApiProperty()
   public ciudad: string;
 
-  @ApiProperty({
-    description: 'Región del usuario',
-    example: 'Región Metropolitana',
-  })
-  @IsNotEmpty()
+  @ApiProperty()
   public region: string;
 
-  @ApiProperty({
-    description: 'Comuna de Santiago del usuario',
-    enum: ComunaSantiago,
-    example: ComunaSantiago.Providencia,
-  })
-  @IsEnum(ComunaSantiago, { message: 'La comuna no es válida' })
-  public comunaSantiago: ComunaSantiago;
+  @ApiProperty()
+  public comuna: string;
 
-  @ApiProperty({
-    description: 'Código postal del usuario',
-    example: '7550000',
-  })
-  @IsNotEmpty()
-  @Matches(/^\d{7}$/, { message: 'El código postal no es válido' })
-  public codigoPostal: string;
+  @ApiProperty()
+  public codigoPostal: number;
 
-  @ApiProperty({
-    description: 'Lista de plantas asociadas al usuario',
-    type: [Planta],
-  })
-  @IsOptional()
+  @ApiProperty()
   public plantas: Planta[];
 
   constructor(
@@ -109,12 +54,12 @@ export class Usuario {
     nombre: string,
     email: string,
     password: string,
-    telefono: string,
+    telefono: number,
     direccion: string,
     ciudad: string,
     region: string,
-    comunaSantiago: ComunaSantiago,
-    codigoPostal: string,
+    comuna: string,
+    codigoPostal: number,
     plantas: Planta[],
   ) {
     this.id = id;
@@ -126,7 +71,7 @@ export class Usuario {
     this.direccion = direccion;
     this.ciudad = ciudad;
     this.region = region;
-    this.comunaSantiago = comunaSantiago;
+    this.comuna = comuna;
     this.codigoPostal = codigoPostal;
     this.plantas = plantas;
   }

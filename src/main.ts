@@ -15,46 +15,85 @@ import { ValidationPipe } from '@nestjs/common';
 import { MaceterosModule } from './maceteros/maceteros.module';
 import { LogRespuestasInterceptor } from './comunes/interceptor/log-respuestas/log-respuestas.interceptor';
 import { GlobalFilter } from './comunes/filter/global.filter';
+import { ConfigService } from '@nestjs/config';
+import * as packageJson from '../package.json';
+import { url } from 'inspector';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+  const puerto = configService.get<number>('PUERTO');
+  const ambiente = configService.get<string>('AMBIENTE');
+  const version = configService.get<string>('VERSION');
+
   app.enableCors();
   // Configuración del interceptor para imprimir log de respuestas OK
   app.useGlobalInterceptors(new LogRespuestasInterceptor());
-    // Configuración de Swagger para la aplicación principal
-  const config = new DocumentBuilder()
-    .setTitle('API Plantopia APP')
-    .setDescription('Esta es la documentación de la API de la APP Plantopia')
-    .setVersion('1.0')
-    .addTag('app-plantopia')
-    .build();
-  const document = SwaggerModule.createDocument(app, config, {
-    include: [AppModule],
-  });
 
-  const productos = SwaggerModule.createDocument(app, config, {
-    include: [ProductosModule],
-  });
-      //documentacion plantas
+  // Configuración de Swagger para cada módulo
+  // Configuración de Swagger para cada módulo
+  const createSwaggerConfig = (moduleName: string) => {
+    const title = `${packageJson.name} - ${moduleName} (${ambiente})`;
+    const contacts = packageJson.contributors
+      .map((contributor) => `${contributor.name} (${contributor.email})`)
+      .join('\n');
 
-  
-  //documentacion usuario
-  const usuarioSwagger = SwaggerModule.createDocument(app, config, {
-    include: [UsuariosModule],
-  });
-  //documentacion OC
-  const ocSwagger = SwaggerModule.createDocument(app, config, {
-    include: [OrdenComprasModule],
-  });
-  //documentacion OC
-  const despachoSwagger = SwaggerModule.createDocument(app, config, {
-    include: [DespachosModule],
-  });
+    return new DocumentBuilder()
+      .setTitle(title)
+      .setDescription(
+        `${packageJson.description}\n\n**Contactos:**\n${contacts}`,
+      )
+      .setVersion(packageJson.version)
+      .setContact(packageJson.author, '', '')
+      .setLicense(packageJson.license, '')
+      .addServer('http://localhost:3000', 'Local')
+      .build();
+  };
+
+  const document = SwaggerModule.createDocument(
+    app,
+    createSwaggerConfig('App'),
+    {
+      include: [AppModule],
+    },
+  );
+
+  const productos = SwaggerModule.createDocument(
+    app,
+    createSwaggerConfig('Productos'),
+    {
+      include: [ProductosModule],
+    },
+  );
+
+  const usuarioSwagger = SwaggerModule.createDocument(
+    app,
+    createSwaggerConfig('Usuarios'),
+    {
+      include: [UsuariosModule],
+    },
+  );
+
+  const ocSwagger = SwaggerModule.createDocument(
+    app,
+    createSwaggerConfig('OrdenCompras'),
+    {
+      include: [OrdenComprasModule],
+    },
+  );
+
+  const despachoSwagger = SwaggerModule.createDocument(
+    app,
+    createSwaggerConfig('Despachos'),
+    {
+      include: [DespachosModule],
+    },
+  );
 
   SwaggerModule.setup('api/productos', app, productos, {
     yamlDocumentUrl: 'swagger/yaml',
   });
-   
+
   SwaggerModule.setup('api/despachos', app, despachoSwagger, {
     yamlDocumentUrl: 'swagger/yaml',
   });
@@ -62,16 +101,26 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document, {
     yamlDocumentUrl: 'swagger/yaml',
   });
+
   SwaggerModule.setup('api/usuarios', app, usuarioSwagger, {
     yamlDocumentUrl: 'swagger/yaml',
   });
+
   SwaggerModule.setup('api/ordenCompra', app, ocSwagger, {
     yamlDocumentUrl: 'swagger/yaml',
   });
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new GlobalFilter());
-  
-  await app.listen(3000);
+
+  await app.listen(puerto);
+  console.log(
+    'Aplicación escuchando en http://localhost:' +
+      puerto +
+      ' ,en ambiente de ' +
+      ambiente +
+      ' con version: ' +
+      version,
+  );
 }
 bootstrap();

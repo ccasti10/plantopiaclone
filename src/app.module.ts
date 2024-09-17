@@ -14,6 +14,7 @@ import { OrdenComprasModule } from './orden-compras/orden-compras.module';
 import { DetalleOrdenComprasModule } from './detalle-orden-compras/detalle-orden-compras.module';
 import { MaceterosModule } from './maceteros/maceteros.module';
 import { GlobalMiddlewareMiddleware } from './comunes/middleware/global.middleware.middleware';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -29,7 +30,14 @@ import { GlobalMiddlewareMiddleware } from './comunes/middleware/global.middlewa
     OrdenComprasModule,
     DetalleOrdenComprasModule,
     MaceterosModule,
+    ConfigModule.forRoot({
+      isGlobal: true, 
+      envFilePath: process.env.AMBIENTE === 'produccion' 
+      ? '.env.productivo' 
+      : '.env.develop',
+    }),
   ],
+  
   controllers: [AppController],
   providers: [AppService],
 })

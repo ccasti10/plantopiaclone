@@ -21,4 +21,7 @@ export enum TipoPlantasRecomendadas{
     SUCULENTAS= 'Suculentas',
     ORQUIDIAS= 'Orquidias',
     CACTUS= 'Cactus',
+    SUCULENTASCACTUS= 'Suculentas y Cactus',
+    HORTALIZAS= 'Hortalizas',
+    BONSAI='Bonsai'
 }

@@ -9,14 +9,12 @@ import { FormaMacetero } from '../entities/enum-macetero';
 export class MaceterosService {
   maceteros:Macetero[]=[]
   constructor(){
-   this.maceteros = [new Macetero(1,'macetero rojo',['http://lugar.com/imagen_m1.png'], 0, 1500, ['Arica a Pta.Arenas'], 10,'macetero de alta gama', TipoProductos.Macetero,0,0,'MA1',15, 16, 0.17,1.5,'Plastico','rojo', FormaMacetero.Rectangular),
-                     new Macetero(2,'macetero blanco',['http://lugar.com/imagen_m2.png'], 0, 2500, ['Arica a Pta.Arenas'], 10,'macetero interior', TipoProductos.Macetero,0,500,'MA2',15, 16, 0.17,1.5,'Plastico','blanca', FormaMacetero.Circular),
-                     new Macetero(3,'macetero verde',['http://lugar.com/imagen_m1.png'], 0, 1500, ['Arica a Pta.Arenas'], 10,'macetero de alta gama', TipoProductos.Macetero,0,500,'MA3',15, 16, 0.17,1.5,'madeta','verde', FormaMacetero.Rectangular),
-                     new Macetero(4,'macetero azul',['http://lugar.com/imagen_m2.png'], 0, 2500, ['Arica a Pta.Arenas'], 10,'macetero interior', TipoProductos.Macetero,0,0,'MA4',15, 16, 0.17,1.5,'Plastico','azul', FormaMacetero.Circular),
-                     new Macetero(5,'macetero amarillo',['http://lugar.com/imagen_m1.png'], 0, 1500, ['Arica a Pta.Arenas'], 10,'macetero de alta gama', TipoProductos.Macetero,0,500,'MA5',15, 16, 0.17,1.5,'madera','amarillo', FormaMacetero.Rectangular),
-                     new Macetero(6,'macetero celeste',['http://lugar.com/imagen_m2.png'], 0, 2500, ['Arica a Pta.Arenas'], 10,'macetero interior', TipoProductos.Macetero,0,250,'MA6',15, 16, 0.17,1.5,'Plastico','celeste', FormaMacetero.Circular),
-                     new Macetero(7,'macetero rosa',['http://lugar.com/imagen_m1.png'], 0, 1500, ['Arica a Pta.Arenas'], 10,'macetero de alta gama', TipoProductos.Macetero,0,320,'MA7',15, 16, 0.17,1.5,'Plastico','rosa', FormaMacetero.Rectangular),
-                     new Macetero(8,'macetero plomo',['http://lugar.com/imagen_m2.png'], 0, 2500, ['Arica a Pta.Arenas'], 10,'macetero interior', TipoProductos.Macetero,0,0,'MA8',15, 16, 0.17,1.5,'cemento','plomo', FormaMacetero.Circular)
+   this.maceteros = [
+                      new Macetero( 11, 'Macetero de plástico redondo 40 cm', ['https://www.sodimac.cl/sodimac-cl/product/267970X/Macetero-circular-plastico-40-cm-Gris/267970X'],10,14990, ['Arica a Pta.Arenas'],20,'Macetero redondo de plástico, ideal para interiores y exteriores.',TipoProductos.Macetero, 4.5, 150,'MA1', 40,40,1.5,15,'Plástico', 'Gris',FormaMacetero.Rectangular ),
+                      new Macetero( 28,'Macetero cerámica grande', ['https://www.paris.cl/macetero-de-ceramica-grande-955204999.html'], 15,24990, ['Arica a Pta.Arenas'], 10,'Macetero de cerámica de diseño moderno.',TipoProductos.Macetero,4.7,80,'MA2',45,35,7,25,'Cerámica','Blanco',FormaMacetero.Circular  ),
+                      new Macetero( 29, 'Macetero colgante fibra natural',['https://www.falabella.com/falabella-cl/product/881594174/Macetero-colgante-de-fibra-natural/881594174'], 5,9990,['Arica a Pta.Arenas'], 30,'Macetero colgante de fibra natural.', TipoProductos.Macetero, 4.2, 120,'MA3',30,25,0.8, 8,'Fibra natural', 'Beige',FormaMacetero.Circular ),
+                      new Macetero( 30, 'Macetero metálico con soporte', ['https://www.easy.cl/tienda/producto/macetero-metal-con-soporte-urban-xl-negro-1282984'], 20, 29990, ['Arica a Pta.Arenas'], 5, 'Macetero de metal con soporte de madera.', TipoProductos.Macetero, 4.8, 50,'MA4', 50,30,5,20,'Metal', 'Negro',FormaMacetero.Rectangular ),
+                      new Macetero( 31,'Macetero cuadrado de cemento', ['https://www.sodimac.cl/sodimac-cl/product/1154031/Macetero-cemento-cubo-35x35-cm-Gris/1154031'],12,18990,['Arica a Pta.Arenas'],  15,'Macetero de cemento con acabado rústico.',TipoProductos.Macetero,4.6, 60, 'MA5',35, 35, 9,18,'Cemento','Gris oscuro',FormaMacetero.Circular )
                     ];
     
     

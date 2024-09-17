@@ -9,6 +9,10 @@ export enum ComposicionSustrato{
     GRAVA = 'Grava',
     HUMMUS = 'Hummus',
     COMPOST = 'Compost',
+    MATERIAORGANICA = 'MateriaOrganica',
+    CORTEZA = 'Corteza',
+    ARENA_VOLCANICA='ArenaVolcanica'
+    
 }
 export enum TexturaSustrato{
     LIGERO = 'Ligero' ,
@@ -24,6 +28,8 @@ export enum TexturaSustrato{
     ESPONOJOSO = 'Esponjoso',
     DENSO = 'Denso', 
     RICO = 'rico',
+    MEDIO = 'Medio',
+    FINA='Fina'
     
 }
 

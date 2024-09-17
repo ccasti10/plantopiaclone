@@ -1,73 +1,131 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Plantopia - API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Somos un e-commerce dedicado a la venta de plantas, productos para jardinería y servicios especializados en el cuidado de plantas. Nuestra API permite gestionar y acceder a una amplia variedad de plantas, insumos y accesorios, así como a la información y recomendaciones para su correcto cuidado. Con ella, puedes explorar nuestro catálogo, realizar compras, y recibir consejos personalizados para mantener tus plantas en óptimas condiciones.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tabla de Contenidos
 
-## Description
+- [Plantopia - API](#plantopia---api)
+  - [Tabla de Contenidos](#tabla-de-contenidos)
+  - [🔗 Links](#-links)
+  - [👨🏻‍💻 Autores](#-autores)
+  - [💻 Requisitos Previos](#-requisitos-previos)
+  - [💻 Instalacion del proyecto](#-instalacion-del-proyecto)
+  - [🏃‍♂️ Ejecutar la APP](#️-ejecutar-la-app)
+  - [📖 Documentacion API 🌎](#-documentacion-api-)
+  - [🏛️ Estructura del Proyecto](#️-estructura-del-proyecto)
+  - [License 📝](#license-)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🔗 Links
 
-## Installation
+Christian Castillo
+
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/ccasti10)
+
+Rodrigo Cabello
+
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/roancamo)
+
+Camilo Orellana
+
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/orellanasolec)
+
+## 👨🏻‍💻 Autores
+
+- [@Ccastillo](https://www.github.com/ccastillo)
+- [@Roancamo](https://www.github.com/Roancamo)
+- [@Orellanasolec](https://www.github.com/orellanasolec)
+
+## 💻 Requisitos Previos
+
+- Node.js (versión v20.15.1)
+- npm (versión 10.8.3)
+- Nest
+
+  ```bash
+  npm i -g @nestjs/cli
+  ```
+
+- Typescript
+
+  ```bash
+  npm install -g typescript
+  ```
+
+- Swagger
+
+  ```bash
+  npm install --save @nestjs/swagger
+  ```
+
+## 💻 Instalacion del proyecto
+
+git clone <https://github.com/bootcamp-uchile-2024/grupo-1-backend.git>
+
+cd tu-repositorio
+
+## 🏃‍♂️ Ejecutar la APP
 
 ```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
+# Desarrollo
 $ npm run start
 
 # watch mode
 $ npm run start:dev
 
-# production mode
+# Produccion
 $ npm run start:prod
 ```
 
-## Test
+## 📖 Documentacion API 🌎
 
-```bash
-# unit tests
-$ npm run test
+Puedes encontrar la documentación completa de la API en el siguiente enlace:
+<https://plantopia.koyeb.app/api/productos>
 
-# e2e tests
-$ npm run test:e2e
+## 🏛️ Estructura del Proyecto
 
-# test coverage
-$ npm run test:cov
+```plaintext
+src/
+├── comunes/
+│   ├── pipes/
+│   ├── filters/
+│   └── interceptor/
+├── productos/
+│   ├── controllers/
+│   ├── dto/
+│   ├── entities/
+│   ├── services/
+│   └── productos.module.ts
+├── plantas/
+│   ├── controllers/
+│   ├── dto/
+│   ├── entities/
+│   ├── services/
+│   └── plantas.module.ts
+├── usuarios/
+│   ├── controllers/
+│   ├── dto/
+│   ├── entities/
+│   ├── services/
+│   └── usuarios.module.ts
+├── orden-compras/
+│   ├── controllers/
+│   ├── dto/
+│   ├── entities/
+│   ├── services/
+│   └── orden-compras.module.ts
+├── despachos/
+│   ├── controllers/
+│   ├── dto/
+│   ├── entities/
+│   ├── services/
+│   └── despachos.module.ts
+├── app.module.ts
+├── main.ts
 ```
 
-## Support
+## License 📝
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Este archivo [`README.md`] proporciona una visión general del proyecto, instrucciones de instalación y uso, ejemplos de solicitudes, y detalles sobre la estructura del proyecto y cómo contribuir.
+licenciado bajo MIT
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+![Logo](https://raw.githubusercontent.com/bootcamp-uchile-2024/grupo-1-backend/main/Logo-Green.png)

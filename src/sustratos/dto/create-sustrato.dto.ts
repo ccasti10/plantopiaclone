@@ -17,6 +17,8 @@ import {
   IsUrl,
   Min,
   Max,
+  MaxLength,
+  ArrayNotEmpty,
 } from 'class-validator';
 
 export class CreateSustratoDto extends CreateProductoDto {
@@ -28,44 +30,52 @@ export class CreateSustratoDto extends CreateProductoDto {
   @IsEnum(TipoProductos)
   @IsNotEmpty()
   public categoria: TipoProductos.Sustratos;
- 
+
 
   @ApiProperty({
     name: 'composicion',
-    example: ['Turba'],
-    description: 'Composición del sustrato',
+    enum: ComposicionSustrato,
+    example: [ComposicionSustrato.CARBON_VEGETAL],
   })
-  @IsArray()
-  @IsEnum(ComposicionSustrato, { each: true })
-  @IsNotEmpty()
+  @IsArray({ message: 'El valor debe ser un array de composicion de sustratos' })
+  @ArrayNotEmpty({ message: 'La lista composicion de sustratos no puede estar vacía' })
+  @IsEnum(ComposicionSustrato, { each: true, message: 'El valor debe ser una composicion sustrato valida' })
   public composicion: ComposicionSustrato[];
 
   @ApiProperty({
     name: 'textura',
-    example: ['Ligero'],
-    description: 'Textura del sustrato',
+    enum: TexturaSustrato,
+    example: [TexturaSustrato.DENSO],
   })
-  @IsArray()
-  @IsEnum(TexturaSustrato, { each: true })
-  @IsNotEmpty()
+  @IsArray({ message: 'El valor debe ser un array de texturas de sustratos' })
+  @ArrayNotEmpty({ message: 'La lista composicion de texturas no puede estar vacía' })
+  @IsEnum(TexturaSustrato, { each: true, message: 'El valor debe ser una textura sustrato valida' })
   public textura: TexturaSustrato[];
 
   @ApiProperty({
     name: 'retencionDeHumedad',
-    example: 'Media',
-    description: 'Retención de humedad del sustrato',
+    enum: RetencionHumedad,
+    example: [RetencionHumedad.MEDIA],
+     description: 'Retención de humedad del sustrato',
   })
-  @IsEnum(RetencionHumedad)
-  @IsNotEmpty()
+  @IsEnum(RetencionHumedad, {
+    message: 'El valor debe ser una retencion válido',
+  })
   public retencionDeHumedad: RetencionHumedad;
+
 
   @ApiProperty({
     name: 'drenaje',
     example: 'Bueno',
     description: 'Drenaje del sustrato',
+    required: true,
+    type: 'string',
+    maxLength: 100,
+    nullable: false
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'El drenaje debe ser texto' })
+  @IsNotEmpty({ message: 'El drenaje es campo obligatorio' })
+  @MaxLength(100, { message: 'Largo del drenaje debe ser menor igual a 100 caracteres' })
   public drenaje: string;
 
   @ApiProperty({
@@ -74,8 +84,9 @@ export class CreateSustratoDto extends CreateProductoDto {
     example: TipoPlantasRecomendadas.PLANTAS_INTERIOR,
     description: 'Tipo de plantas recomendadas',
   })
-  @IsEnum(TipoPlantasRecomendadas)
-  @IsNotEmpty()
+  @IsEnum(TipoPlantasRecomendadas, {
+    message: 'El valor debe ser una tipo planta recomendada válida',
+  })
   public plantasRecomendadas: TipoPlantasRecomendadas;
 
   @ApiProperty({
@@ -83,9 +94,11 @@ export class CreateSustratoDto extends CreateProductoDto {
     example:
       'Ideal para plantas de interior que necesitan un buen equilibrio entre retención de humedad y drenaje.',
     description: 'Observaciones del sustrato',
+    maxLength: 500
   })
-  @IsString()
   @IsOptional()
+  @IsString({ message: 'El color del macetero debe ser texto' })
+  @MaxLength(500, { message: 'Largo del color del macetero de ser menor igual a 500 caracteres' })
   public observaciones: string;
-  
+
 }
