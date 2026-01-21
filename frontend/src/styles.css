@@ -1,0 +1,92 @@
+/* Tailwind CSS 4 Import */
+@import "tailwindcss";
+
+/* Paleta de Colores Temática Plantas/Bosques */
+@theme {
+  /* Colores Primarios - Verde Natural */
+  --color-forest-50: #f0fdf4;
+  --color-forest-100: #dcfce7;
+  --color-forest-200: #bbf7d0;
+  --color-forest-300: #86efac;
+  --color-forest-400: #4ade80;
+  --color-forest-500: #22c55e;
+  --color-forest-600: #16a34a;
+  --color-forest-700: #15803d;
+  --color-forest-800: #166534;
+  --color-forest-900: #14532d;
+  --color-forest-950: #052e16;
+
+  /* Colores Secundarios - Tierra/Madera */
+  --color-earth-50: #fefce8;
+  --color-earth-100: #fef9c3;
+  --color-earth-200: #fef08a;
+  --color-earth-300: #fde047;
+  --color-earth-400: #facc15;
+  --color-earth-500: #eab308;
+  --color-earth-600: #ca8a04;
+  --color-earth-700: #a16207;
+  --color-earth-800: #854d0e;
+  --color-earth-900: #713f12;
+  --color-earth-950: #422006;
+
+  /* Colores Acento - Florales */
+  --color-bloom-50: #fdf4ff;
+  --color-bloom-100: #fae8ff;
+  --color-bloom-200: #f5d0fe;
+  --color-bloom-300: #f0abfc;
+  --color-bloom-400: #e879f9;
+  --color-bloom-500: #d946ef;
+  --color-bloom-600: #c026d3;
+  --color-bloom-700: #a21caf;
+  --color-bloom-800: #86198f;
+  --color-bloom-900: #701a75;
+  --color-bloom-950: #4a044e;
+
+  /* Colores Neutros - Natural */
+  --color-stone-50: #fafaf9;
+  --color-stone-100: #f5f5f4;
+  --color-stone-200: #e7e5e4;
+  --color-stone-300: #d6d3d1;
+  --color-stone-400: #a8a29e;
+  --color-stone-500: #78716c;
+  --color-stone-600: #57534e;
+  --color-stone-700: #44403c;
+  --color-stone-800: #292524;
+  --color-stone-900: #1c1917;
+  --color-stone-950: #0c0a09;
+}
+
+/* Estilos Globales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-stone-50);
+  color: var(--color-stone-900);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-stone-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-forest-500);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-forest-600);
+}

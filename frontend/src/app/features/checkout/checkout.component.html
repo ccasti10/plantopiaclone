@@ -1,0 +1,161 @@
+<div class="bg-stone-50 min-h-screen py-12">
+  <div class="container mx-auto px-4">
+    <h1 class="text-4xl font-bold text-stone-900 mb-8">Finalizar Compra</h1>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Formulario -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Información de Envío -->
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h2 class="text-2xl font-bold text-stone-900 mb-6">Información de Envío</h2>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-stone-700 font-medium mb-2">Nombre Completo</label>
+              <input type="text"
+                     [value]="direccionEnvio().nombreDestinatario"
+                     (input)="actualizarDireccion('nombreDestinatario', $any($event.target).value)"
+                     class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-500"
+                     placeholder="Juan Pérez">
+            </div>
+
+            <div>
+              <label class="block text-stone-700 font-medium mb-2">Dirección</label>
+              <input type="text"
+                     [value]="direccionEnvio().direccion"
+                     (input)="actualizarDireccion('direccion', $any($event.target).value)"
+                     class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-500"
+                     placeholder="Calle 123, Casa 45">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-stone-700 font-medium mb-2">Ciudad</label>
+                <input type="text"
+                       [value]="direccionEnvio().ciudad"
+                       (input)="actualizarDireccion('ciudad', $any($event.target).value)"
+                       class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-500"
+                       placeholder="Santiago">
+              </div>
+
+              <div>
+                <label class="block text-stone-700 font-medium mb-2">Región</label>
+                <input type="text"
+                       [value]="direccionEnvio().region"
+                       (input)="actualizarDireccion('region', $any($event.target).value)"
+                       class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-500"
+                       placeholder="Metropolitana">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-stone-700 font-medium mb-2">Código Postal</label>
+                <input type="text"
+                       [value]="direccionEnvio().codigoPostal"
+                       (input)="actualizarDireccion('codigoPostal', $any($event.target).value)"
+                       class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-500"
+                       placeholder="1234567">
+              </div>
+
+              <div>
+                <label class="block text-stone-700 font-medium mb-2">Teléfono</label>
+                <input type="tel"
+                       [value]="direccionEnvio().telefono"
+                       (input)="actualizarDireccion('telefono', $any($event.target).value)"
+                       class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-500"
+                       placeholder="+56 9 1234 5678">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Método de Pago -->
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h2 class="text-2xl font-bold text-stone-900 mb-6">Método de Pago</h2>
+
+          <div class="space-y-3">
+            @for (metodo of metodosPago; track metodo) {
+              <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all"
+                     [class]="metodoPagoSeleccionado() === metodo ? 'border-forest-600 bg-forest-50' : 'border-stone-200 hover:border-forest-400'">
+                <input type="radio"
+                       [checked]="metodoPagoSeleccionado() === metodo"
+                       (change)="metodoPagoSeleccionado.set(metodo)"
+                       class="mr-3">
+                <span class="font-medium text-stone-900">{{ metodo }}</span>
+              </label>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen de Pedido -->
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-xl p-6 shadow-md sticky top-24">
+          <h2 class="text-2xl font-bold text-stone-900 mb-6">Resumen del Pedido</h2>
+
+          <div class="space-y-4 mb-6">
+            @for (item of carritoService.items(); track item.producto.idProducto) {
+              <div class="flex gap-3">
+                <div class="flex-shrink-0 w-16 h-16 bg-stone-100 rounded-lg overflow-hidden">
+                  @if (item.producto.imagenProducto && item.producto.imagenProducto.length > 0) {
+                    <img [src]="item.producto.imagenProducto[0]" [alt]="item.producto.nombreProducto"
+                         class="w-full h-full object-contain">
+                  }
+                </div>
+                <div class="flex-grow">
+                  <p class="text-sm font-medium text-stone-900 line-clamp-2">
+                    {{ item.producto.nombreProducto }}
+                  </p>
+                  <p class="text-sm text-stone-600">
+                    {{ item.cantidad }} x ${{ item.subtotal / item.cantidad | number:'1.0-0' }}
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="font-semibold text-stone-900">
+                    ${{ item.subtotal | number:'1.0-0' }}
+                  </p>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="border-t border-stone-200 pt-4 space-y-2 mb-6">
+            <div class="flex justify-between text-stone-700">
+              <span>Subtotal</span>
+              <span class="font-semibold">${{ carritoService.total() | number:'1.0-0' }}</span>
+            </div>
+            <div class="flex justify-between text-stone-700">
+              <span>Envío</span>
+              <span class="font-semibold text-forest-600">Gratis</span>
+            </div>
+            <div class="flex justify-between text-lg font-bold text-stone-900 pt-2">
+              <span>Total</span>
+              <span class="text-forest-600">${{ carritoService.total() | number:'1.0-0' }}</span>
+            </div>
+          </div>
+
+          <button (click)="procesarPago()"
+                  [disabled]="procesando()"
+                  class="w-full px-8 py-4 bg-forest-600 hover:bg-forest-700 disabled:bg-stone-300 disabled:cursor-not-allowed text-white rounded-lg transition-colors font-semibold text-center mb-4">
+            @if (procesando()) {
+              <span class="flex items-center justify-center">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Procesando...
+              </span>
+            } @else {
+              <span>Realizar Pedido</span>
+            }
+          </button>
+
+          <div class="text-xs text-stone-500 text-center">
+            Al realizar el pedido, aceptas nuestros términos y condiciones
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

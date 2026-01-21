@@ -1,0 +1,135 @@
+<div class="bg-stone-50 min-h-screen py-12">
+  <div class="container mx-auto px-4">
+    @if (cargando()) {
+      <div class="flex justify-center items-center py-24">
+        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-forest-600"></div>
+      </div>
+    } @else if (error()) {
+      <div class="text-center py-24">
+        <p class="text-red-600 text-xl">{{ error() }}</p>
+      </div>
+    } @else if (producto()) {
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Galería de Imágenes -->
+        <div>
+          <div class="bg-white rounded-xl p-4 mb-4">
+            @if (producto()!.imagenProducto && producto()!.imagenProducto.length > 0) {
+              <img [src]="producto()!.imagenProducto[imagenSeleccionada()]" [alt]="producto()!.nombreProducto"
+                   class="w-full h-[500px] object-contain">
+            } @else {
+              <div class="w-full h-[500px] flex items-center justify-center bg-stone-100 rounded-lg">
+                <svg class="w-32 h-32 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+              </div>
+            }
+          </div>
+
+          @if (producto()!.imagenProducto && producto()!.imagenProducto.length > 1) {
+            <div class="grid grid-cols-4 gap-4">
+              @for (imagen of producto()!.imagenProducto; track $index) {
+                <button (click)="seleccionarImagen($index)"
+                        [class]="$index === imagenSeleccionada() ? 'ring-2 ring-forest-600' : ''"
+                        class="bg-white rounded-lg p-2 hover:ring-2 hover:ring-forest-400 transition-all">
+                  <img [src]="imagen" [alt]="producto()!.nombreProducto"
+                       class="w-full h-20 object-contain">
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Información del Producto -->
+        <div>
+          <div class="bg-white rounded-xl p-8">
+            <span class="inline-block px-3 py-1 bg-forest-100 text-forest-700 text-sm font-semibold rounded-full mb-4">
+              {{ producto()!.categoria }}
+            </span>
+
+            <h1 class="text-3xl font-bold text-stone-900 mb-4">
+              {{ producto()!.nombreProducto }}
+            </h1>
+
+            <div class="flex items-center gap-4 mb-6">
+              <div class="flex items-center">
+                @for (star of [1,2,3,4,5]; track star) {
+                  <svg class="w-5 h-5" [class]="star <= producto()!.valoracion ? 'text-earth-500' : 'text-stone-300'" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                  </svg>
+                }
+              </div>
+              <span class="text-stone-600">{{ producto()!.valoracion }} / 5</span>
+              <span class="text-stone-500">({{ producto()!.cantidadVentas }} ventas)</span>
+            </div>
+
+            <div class="mb-6">
+              @if (producto()!.descuento > 0) {
+                <div class="flex items-baseline gap-3">
+                  <span class="text-4xl font-bold text-forest-600">
+                    ${{ calcularPrecioConDescuento(producto()!) | number:'1.0-0' }}
+                  </span>
+                  <span class="text-2xl text-stone-400 line-through">
+                    ${{ producto()!.precioNormal | number:'1.0-0' }}
+                  </span>
+                  <span class="px-3 py-1 bg-red-500 text-white rounded-full text-sm font-bold">
+                    -{{ producto()!.descuento }}% OFF
+                  </span>
+                </div>
+              } @else {
+                <span class="text-4xl font-bold text-forest-600">
+                  ${{ producto()!.precioNormal | number:'1.0-0' }}
+                </span>
+              }
+            </div>
+
+            <div class="mb-6 pb-6 border-b border-stone-200">
+              <p class="text-stone-700 leading-relaxed">
+                {{ producto()!.descripcionProducto }}
+              </p>
+            </div>
+
+            <div class="mb-6">
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-stone-700 font-medium">Stock disponible:</span>
+                <span class="text-forest-600 font-bold">{{ producto()!.stock }} unidades</span>
+              </div>
+
+              @if (producto()!.stock > 0) {
+                <div class="flex items-center gap-4">
+                  <span class="text-stone-700 font-medium">Cantidad:</span>
+                  <div class="flex items-center border border-stone-300 rounded-lg">
+                    <button (click)="decrementarCantidad()"
+                            class="px-4 py-2 text-stone-600 hover:bg-stone-100 transition-colors">
+                      -
+                    </button>
+                    <span class="px-6 py-2 font-semibold">{{ cantidad() }}</span>
+                    <button (click)="incrementarCantidad()"
+                            class="px-4 py-2 text-stone-600 hover:bg-stone-100 transition-colors">
+                      +
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+
+            @if (producto()!.stock > 0) {
+              <button (click)="agregarAlCarrito()"
+                      class="w-full px-8 py-4 bg-forest-600 hover:bg-forest-700 text-white rounded-lg transition-colors font-semibold text-lg mb-4">
+                Agregar al Carrito
+              </button>
+              <a routerLink="/carrito"
+                 class="block w-full px-8 py-4 bg-earth-600 hover:bg-earth-700 text-white rounded-lg transition-colors font-semibold text-lg text-center">
+                Comprar Ahora
+              </a>
+            } @else {
+              <button disabled
+                      class="w-full px-8 py-4 bg-stone-300 text-stone-500 rounded-lg cursor-not-allowed font-semibold text-lg">
+                Producto No Disponible
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
