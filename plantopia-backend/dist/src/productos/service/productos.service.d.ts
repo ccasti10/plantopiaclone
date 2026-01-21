@@ -1,0 +1,32 @@
+import { CreateMaceteroDto } from 'src/maceteros/dto/create-macetero.dto';
+import { CreatePlantaDto } from 'src/plantas/dto/create-planta.dto';
+import { CreateControlPlagasDto } from 'src/control-plagas/dto/create-control-plagas.dto';
+import { Producto } from '../entities/producto.entity';
+import { TipoProductos } from '../entities/enum-productos';
+import { MaceterosService } from 'src/maceteros/service/maceteros.service';
+import { CreateFertilizanteDto } from 'src/fertilizantes/dto/create-fertilizante.dto';
+import { CreateSustratoDto } from 'src/sustratos/dto/create-sustrato.dto';
+import { SustratosService } from 'src/sustratos/service/sustratos.service';
+import { ControlPlagasService } from 'src/control-plagas/service/control-plagas.service';
+import { FertilizantesService } from 'src/fertilizantes/service/fertilizantes.service';
+import { PlantasService } from 'src/plantas/service/plantas.service';
+export declare class ProductosService {
+    private readonly servicioMaceteros;
+    private readonly servicioPLantas;
+    private readonly servicioControlPlagas;
+    private readonly servicioFertilizantes;
+    private readonly servicioSustratos;
+    productos: Producto[];
+    constructor(servicioMaceteros: MaceterosService, servicioPLantas: PlantasService, servicioControlPlagas: ControlPlagasService, servicioFertilizantes: FertilizantesService, servicioSustratos: SustratosService);
+    findAll(): Producto[];
+    findbyType(categoria: TipoProductos): import("../../plantas/entities/planta.entity").Planta[] | import("../../maceteros/entities/macetero.entity").Macetero[] | import("../../sustratos/entities/sustrato.entity").Sustrato[] | import("../../control-plagas/entities/control-plagas.entity").ControlPlagas[] | import("../../fertilizantes/entities/fertilizante.entity").Fertilizante[];
+    obtCantidadProductos(): number;
+    createMacetero(createMaceteroDto: CreateMaceteroDto): import("../../maceteros/entities/macetero.entity").Macetero;
+    createPlanta(createPlantaDto: CreatePlantaDto): import("../../plantas/entities/planta.entity").Planta;
+    createControlPlagas(createControlPlagasDto: CreateControlPlagasDto): import("../../control-plagas/entities/control-plagas.entity").ControlPlagas;
+    createFertilizante(createFertilizanteDto: CreateFertilizanteDto): import("../../fertilizantes/entities/fertilizante.entity").Fertilizante;
+    createSustrato(createSustrato: CreateSustratoDto): import("../../sustratos/entities/sustrato.entity").Sustrato;
+    findOne(codigoProducto: string): import("../../fertilizantes/entities/fertilizante.entity").Fertilizante | import("../../sustratos/entities/sustrato.entity").Sustrato | import("../../plantas/entities/planta.entity").Planta | import("../../maceteros/entities/macetero.entity").Macetero | import("../../control-plagas/entities/control-plagas.entity").ControlPlagas;
+    bestSellers(): Producto[];
+    findOneID(id: number): Producto[];
+}
